@@ -13,33 +13,32 @@
 <div class="container-fluid">
   <mat-card>
 
-    <div class="alert alert-primary"  role="alert"> <h4> <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg> AUCTION FORM  </h4> <p> Fill in the following form </p></div>
+    <div class="alert alert-primary"  role="alert"> <h4> <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg> AUCTION FORM  </h4> <p> Please fill in  your requirements to deploy the Auction </p></div>
 
     <mat-card-content>
 
     <form class="example-form" [formGroup]="profileForm" >
 
       <mat-form-field class="example-full-width">
-        <mat-label> Set maximum price ready to pay : </mat-label>
+        <mat-label> Set your reserve price for this auction : </mat-label>
         <br>
         <br>
 
         <div class="input-group mb-3">
-          <span class="input-group-text"> Maximum Price </span>
-          <input matInput type="number" class="form-control" aria-label="maximum price" formControlName="maxPrice">
+          <label class="input-group-text" > Reserve price </label>
+          <input matInput type="number" min="0" class="form-control" aria-label="maximum price" formControlName="maxPrice"> <!--[ngModel]="this.tempMaxPrice"-->
         </div>
-
       </mat-form-field>
 
 
       <mat-form-field class="example-full-width">
-        <mat-label> Set currency used : </mat-label>
+        <mat-label> Set currency used for Auction : </mat-label>
         <br>
         <br>
         <div class="input-group mb-3">
           <label class="input-group-text" for="inputGroupSelect01"> Currency </label>
-          <mat-select class="form-select" id="inputGroupSelect01" formControlName="currency" >
-            <mat-option *ngFor="let c of currenciesArray" [value]="c" ngDefaultControl>
+          <mat-select class="form-select" id="inputGroupSelect01" formControlName="currency" > <!-- [ngModel]="this.tempCurrency"-->
+            <mat-option *ngFor="let c of currenciesArray" [value]="c" ngDefaultControl >
               {{c.value}}
             </mat-option>
           </mat-select>
@@ -54,7 +53,7 @@
         <br>
         <div class="input-group mb-3">
           <label class="input-group-text" for="inputGroupSelect02"> Duration (in minutes) </label>
-          <mat-select class="form-select" id="inputGroupSelect02" formControlName="duration">
+          <mat-select class="form-select" id="inputGroupSelect02" formControlName="duration"> <!-- [ngModel]="this.tempDuration"-->
             <mat-option *ngFor="let d of durationArray" [value]="d" ngDefaultControl>
               {{d.value}}
             </mat-option>
@@ -62,10 +61,34 @@
         </div>
       </mat-form-field>
 
+
+      <mat-form-field class="example-full-width">
+        <mat-label> Choose type of computation : </mat-label>
+        <br>
+        <br>
+        <div class="input-group mb-3">
+          <label class="input-group-text" for="inputGroupSelect03"> Computation type </label>
+          <mat-select class="form-select" id="inputGroupSelect03" formControlName="computationType"> <!-- [ngModel]="this.tempComputationType"-->
+            <mat-option *ngFor="let cp of computationType" [value]="cp" ngDefaultControl>
+              {{cp.value}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </mat-form-field>
+
     </form>
+      <!--
+           <div class="row justify-content-center">
+           <button (click)="testJsFunction()"> TEST JS  </button>
+           </div>
 
+           <br>
+           <br>
 
-    <div class="row justify-content-center">
+          <button class="btn btn-primary" (click)="this.callCreateFirstBid()"> ADD first bid  </button>
+          -->
+
+      <div class="row justify-content-center">
       <button type="submit" [disabled]="!profileForm.valid" (click)="createAuction()" class="btn btn-primary"> Submit </button>
     </div>
 

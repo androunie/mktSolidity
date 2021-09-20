@@ -18,6 +18,8 @@ import { AppRoutingModule } from './app-routing.module';
 import {MatSelectModule} from '@angular/material/select';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AboutComponent } from './about/about.component';
+import { SemanticConfiguratorComponent } from './semantic-configurator/semantic-configurator.component';
+import { SemanticLabelComponent } from './semantic-label/semantic-label.component';
 
 
 @NgModule({
@@ -25,6 +27,8 @@ import { AboutComponent } from './about/about.component';
     AppComponent,
     FactoryComponent,
     AboutComponent,
+    SemanticConfiguratorComponent,
+    SemanticLabelComponent,
   ],
   imports: [
     BrowserAnimationsModule,

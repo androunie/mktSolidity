@@ -15,3 +15,5 @@
   display: flex;
   justify-content: center
 }
+
+label { display: block; width: 200px; }

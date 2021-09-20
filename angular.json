@@ -69,7 +69,10 @@
             "karmaConfig": "./karma.conf.js",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
-            "scripts": [],
+            "scripts": [
+              "src/assets/js/semanticMatchmaking.js",
+              "src/assets/js/test.js"
+            ],
             "styles": [
               "src/styles.css"
             ],

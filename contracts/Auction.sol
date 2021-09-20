@@ -14,7 +14,7 @@ contract Auction {
     address auctionOwner;
     AuctionStatus currentState;
     uint duration;
-    uint timeAtStartContract;
+    uint timeAtStartContract = block.timestamp; // added "= block.timestamp"
     uint maxPrice;
     uint uniqueIdCounter = 0;
     string requirementsURI; // Requirements URI is an IPFS URI
@@ -61,11 +61,11 @@ contract Auction {
         _;
     }
 
-    modifier notFinished() {
-        require(block.timestamp < timeAtStartContract + duration, "Auction is finished (timeout).");
-        require(currentState != AuctionStatus.Finished, "Auction is finished.");
-        _;
-    }
+    // modifier notFinished() {
+        // require(block.timestamp < timeAtStartContract + duration, "Auction is finished (timeout).");
+        // require(currentState != AuctionStatus.Finished, "Auction is finished.");
+        // _;
+    // }
 
     /// @notice Creates an Auction contract with default values, explained here
     /// @param _maxPrice maximum price allowed for a bid
@@ -80,7 +80,8 @@ contract Auction {
         timeAtStartContract = block.timestamp;
         factoryAddress = msg.sender;
         auctionOwner = _auctionOwner;
-        duration = _duration * 1 minutes;
+        // duration = _duration * 1 minutes;
+        duration = 1000; // removed 'minutes'
         currency = _currency;
         maxPrice = _maxPrice;
         requirementsURI = _requirementsURI;
@@ -90,7 +91,7 @@ contract Auction {
     /// @notice Place a new bid from a provider, if it does not exist yet, and stores references to the bid
     /// @param _price bid price
     /// @param _pa which asset is proposed by the provider. 3 possibilities defined in the corresponding enum.
-    function placeBid(uint _price, ProviderAsset _pa) public notFinished {
+    function placeBid(uint _price, ProviderAsset _pa) public { //removed "public notFinished "
         require (!addressToBid[msg.sender].exists, "Bid already exists.");
         uint pId = uint(_pa);
         if(assetToProviders[pId].length > 0) {
@@ -110,7 +111,7 @@ contract Auction {
         bidHistory.push(BidHistoryPoint(_price, _pa, msg.sender));
     }
 
-    function modifyBid(uint _price) public notFinished {
+    function modifyBid(uint _price) public  { // public notFinished
         Bid storage bid = addressToBid[msg.sender];
         (address lowestAddress, uint lowestBid) = getAssetWinner(bid.asset);
         if (lowestAddress != msg.sender || lowestBid > _price) {
